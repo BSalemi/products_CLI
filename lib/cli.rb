@@ -26,8 +26,10 @@ class CLI
 
         self.create_products(product_data)
 
-        puts Product.first.inspect
-        #testing
+        Product.create_product_hash(product_data)
+
+        # products = cli.find_by_options(cli.find_by_type)
+
     end
 
 
