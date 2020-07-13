@@ -9,18 +9,32 @@ class CLI
             exit
         end
 
-        #Sets the first argument of args to the @type instance variable. 
-        @type = args.first.downcase 
+        #Sets the first argument of args to the @type instance variable.
+        @type = args.first.downcase
 
-    end 
+        self.set_options(args) if args.length > 1
+        
+    end
+
+    def set_options(options)
+        #Stores the remaining options entered by the user to the @options instance variable.
+        @options = options.slice(1, options.length)
+    end
 
     def self.run(product_data, args)
         cli = self.new(args)
 
-        puts "hi test"
-    end 
+        self.create_products(product_data)
+
+        puts Product.first.inspect
+        #testing
+    end
 
 
-
+    def self.create_products(product_data)
+        product_data.each do |product|
+            Product.new(product["id"], product["product_type"], product["options"])
+        end
+    end
 
 end
