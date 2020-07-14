@@ -5,7 +5,7 @@ class CLI
     def initialize(args)
         #Checks if arguments were passed in to CLI. If not, instruct user to do so and exits the CLI.
         if args.length === 0
-            puts "Please enter a product type with 0 or more options (i.e. tshirt red).".colorize(:red)
+            puts "Please enter a product type with 0 or more options.".colorize(:red)
             exit
         end
 
@@ -28,7 +28,7 @@ class CLI
 
         Product.create_product_hash(product_data)
 
-        cli.show_options(Product.get_product_hash)
+        cli.display_results(Product.get_product_hash)
         
     end
 
@@ -39,18 +39,15 @@ class CLI
         end
     end
 
-    def show_options(product_hash)
-
-        product = product_hash.keys.include?(@type)
+    def display_results(product_hash)
+        product_keys = product_hash.keys
+        product = product_keys.include?(@type)
 
         if product
 
             if @options.nil?
                 #If product is one of the keys in product_hash and @@options is nil.
-                product_hash[@type].each do |category, options|
-                    puts "#{category.capitalize}:".colorize(:green)
-                    puts" #{options.join(" ")}"
-                 end
+                self.results_no_options(product_hash)
             else
                 product_values = product_hash[@type].values.flatten 
 
@@ -82,8 +79,17 @@ class CLI
                 #first letters and the corresponding option types below them
             end
         else
-            puts "Please enter a valid product type (i.e. tshirt, mug, sticker) with 0 or more options (i.e. male, red, small).".colorize(:red)
+            puts "Please enter a valid product type (i.e. #{product_keys.join(", ")}) with 0 or more options.".colorize(:red)
             exit
         end
     end
+
+    def results_no_options(product_hash)
+        product_hash[@type].each do |category, options|
+            puts "#{category.capitalize}:".colorize(:green)
+            puts" #{options.join(" ")}"
+        end
+    end
+
+    
 end
