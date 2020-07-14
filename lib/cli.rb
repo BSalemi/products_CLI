@@ -12,8 +12,7 @@ class CLI
         #Sets the first argument of args to the @search_type instance variable.
         @search_type = args.first.downcase
 
-        self.set_options(args) if args.length > 1
-        
+        self.set_options(args) if args.length > 1    
     end
 
     def set_options(options)
@@ -29,7 +28,7 @@ class CLI
         if args.length > 1
             filtered_products = cli.filter_by_options(cli.filter_product)
 
-            if filtered_products.empty? 
+            if filtered_products.empty?
                 puts "Sorry, one or more of your options is invalid. Please try again.".colorize(:red)
                 exit
             end
@@ -51,13 +50,14 @@ class CLI
     end
 
     def filter_product
-        # search for products that match type given by user
+        #Search for products that match type given by user
         Product.all.filter do |product|
             product.type == @search_type
         end
     end
 
     def filter_by_options(products)
+        #Filter products by type and all options given by user
         products.filter do |product|
             @search_options.all? do |option|
                 product.options.value?(option)
@@ -66,8 +66,7 @@ class CLI
     end
 
     def display_results_without_options(product_hash)
-        product_keys = product_hash.keys
-        product = product_keys.include?(@search_type)
+        product = product_hash.keys.include?(@search_type)
 
         if product
             product_hash[@search_type].each do |category, options|
@@ -81,12 +80,11 @@ class CLI
 
     def display_results_with_options(product_hash)
         new_hash = {}
-        product_keys = product_hash.keys
-        product = product_keys.include?(@search_type)
+
+        product = product_hash.keys.include?(@search_type)
 
         if product
-        #Create an empty hash and set the options (without the product_type) equal to prod_options
-
+            #Check if the values of product_hash[@search_type] include @search_options. If it does, calls except! to remove that key/value pair from the hash and set the remaining hash to new_hash.
             @search_options.each do |option|
                 product_hash[@search_type].each do |key, value|
                     if value.include?(option)
@@ -103,13 +101,4 @@ class CLI
             exit
         end
     end
-        #Iterate over the options and @@product_hash to check if any of the values include
-        #the current option. If so use except! method to remove the entire key (with values)
-        #from the hash and set that equal to new_hash.
-
-       
-
-        #Iterate over new_hash and print out the remaining category names with capitalized
-        #first letters and the corresponding option types below them
-
 end
