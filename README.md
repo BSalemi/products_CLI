@@ -1,7 +1,5 @@
 # products_CLI
 
-
-
 ## Introduction 
 
 products_CLI is a command line program that takes in a product type and 0 or more product options and
@@ -27,15 +25,15 @@ Size: small, medium, large, extra-large, 2x-large
 Example: When options are providing alongside product type.
          No Gender option is shown when option 'male' is given.
 
-> ./my_program tshirt male
+```
+> ./product_CLI tshirt male
 Color: red, blue, green
 Size: small, medium, large, extra-large, 2x-large
-
-
+```
 
 ## Installation
 
-Fork and clone this repository and cd into the directory.
+Fork and clone this repository and `cd` into the directory.
 
 And then execute:
 
