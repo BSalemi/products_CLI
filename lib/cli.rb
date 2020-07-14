@@ -56,28 +56,8 @@ class CLI
                     exit
                 end
                 #If options are found within the product_hash
-                new_hash = {}
-
-                #Create an empty hash and set the options (without the product_type) equal to prod_options
-                @options.each do |option|
-                    product_hash[@type].each do |key, value|
-                        if value.include?(option)
-                            new_hash = product_hash[@type].except!(key)
-                        end
-                    end
-                end
-                #Iterate over the options and @@product_hash to check if any of the values include
-                #the current option. If so use except! method to remove the entire key (with values)
-                #from the hash and set that equal to new_hash.
-
-                new_hash.each do |category, options|
-                    puts "#{category.capitalize}:".colorize(:green)
-                    puts" #{options.join(" ")}"
-                end
-
-                #Iterate over new_hash and print out the remaining category names with capitalized
-                #first letters and the corresponding option types below them
-            end
+                self.results_with_options(product_hash)  
+            end     
         else
             puts "Please enter a valid product type (i.e. #{product_keys.join(", ")}) with 0 or more options.".colorize(:red)
             exit
@@ -91,5 +71,27 @@ class CLI
         end
     end
 
-    
+    def results_with_options(product_hash)
+        new_hash = {}
+
+        #Create an empty hash and set the options (without the product_type) equal to prod_options
+        @options.each do |option|
+            product_hash[@type].each do |key, value|
+                if value.include?(option)
+                    new_hash = product_hash[@type].except!(key)
+                end
+            end
+        end
+        #Iterate over the options and @@product_hash to check if any of the values include
+        #the current option. If so use except! method to remove the entire key (with values)
+        #from the hash and set that equal to new_hash.
+
+        new_hash.each do |category, options|
+            puts "#{category.capitalize}:".colorize(:green)
+            puts" #{options.join(" ")}"
+        end
+
+        #Iterate over new_hash and print out the remaining category names with capitalized
+        #first letters and the corresponding option types below them
+    end
 end
