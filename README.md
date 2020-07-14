@@ -7,7 +7,13 @@
 products_CLI is a command line program that takes in a product type and 0 or more product options and
 returns available product options for the criteria entered, excluding the options that have already been specified.
 
-### Examples 
+## Table of contents
+* [Examples](#examples)
+* [Installation](#installation)
+* [Usage](#usage)
+* [Contributing](#contributing)
+
+### Examples
 
 Example: Product type only.
 
@@ -17,6 +23,14 @@ Gender: male, female
 Color: red, navy, green, white, black
 Size: small, medium, large, extra-large, 2x-large
 ```
+
+Example: When options are providing alongside product type.
+         No Gender option is shown when option 'male' is given.
+
+> ./my_program tshirt male
+Color: red, blue, green
+Size: small, medium, large, extra-large, 2x-large
+
 
 
 ## Installation
