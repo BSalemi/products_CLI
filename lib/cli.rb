@@ -26,10 +26,14 @@ class CLI
 
         self.create_products(product_data)
 
+        if args.length > 1
+            filtered_products = cli.filter_by_options(cli.filter_product)
+            Product.create_product_hash(filtered_products)
+        else
+
         Product.create_product_hash(cli.filter_product)
-        # Product.filter_product(@type)
         # cli.display_results(Product.get_product_hash)
-        
+        end
     end
 
 
@@ -97,8 +101,18 @@ class CLI
 
     def filter_product
         # search for products that match type given by user
-        Product.all.filter do |prod|
-            prod.type == @type
+        Product.all.filter do |product|
+            product.type == @type
         end
     end
+
+    def filter_by_options(products)
+        products.filter do |product|
+            @options.all? do |option|
+                binding.pry
+                product.options.value?(option)
+            end
+        end
+    end
+
 end

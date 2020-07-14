@@ -39,12 +39,11 @@ class Product
             end
           end
         end
-        binding.pry
     end
 
-    # def self.get_product_hash
-    #     @@product_hash
-    # end
+    def self.get_product_hash
+        @@product_hash
+    end
 
 
     
