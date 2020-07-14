@@ -28,12 +28,18 @@ class CLI
 
         if args.length > 1
             filtered_products = cli.filter_by_options(cli.filter_product)
+
+            if filtered_products.empty? 
+                puts "Sorry, one or more of your options is invalid. Please try again.".colorize(:red)
+                exit
+            end
+
             Product.create_product_hash(filtered_products)
-            cli.display_results(Product.get_product_hash)
+            cli.display_results_with_options(Product.get_product_hash)
         else
 
-        Product.create_product_hash(cli.filter_product)
-        cli.display_results(Product.get_product_hash)
+            Product.create_product_hash(cli.filter_product)
+            cli.display_results_without_options(Product.get_product_hash)
         end
     end
 
@@ -59,60 +65,51 @@ class CLI
         end
     end
 
-    def display_results(product_hash)
+    def display_results_without_options(product_hash)
         product_keys = product_hash.keys
         product = product_keys.include?(@search_type)
 
         if product
-
-            if @search_options.nil?
-                #If product is one of the keys in product_hash and @@search_options is nil.
-                self.results_no_options(product_hash)
-            else
-                product_values = product_hash[@search_type].values.flatten 
-
-                if !@search_options.any?{|option| product_values.include?(option)}
-                    puts "Sorry, one or more of your options is invalid. Please try again.".colorize(:red)
-                    exit
-                end
-                #If options are found within the product_hash
-                self.results_with_options(product_hash)  
-            end     
+            product_hash[@search_type].each do |category, options|
+                puts "#{category.capitalize}:".colorize(:green) + " #{options.join(" ")}"
+            end
         else
-            puts "Please enter a valid product type (i.e. #{product_keys.join(", ")}) with 0 or more options.".colorize(:red)
+            puts "Please enter a valid product type with 0 or more options.".colorize(:red)
             exit
         end
     end
 
-    def results_no_options(product_hash)
-        product_hash[@search_type].each do |category, options|
-            puts "#{category.capitalize}:".colorize(:green)
-            puts" #{options.join(" ")}"
-        end
-    end
-
-    def results_with_options(product_hash)
+    def display_results_with_options(product_hash)
         new_hash = {}
+        product_keys = product_hash.keys
+        product = product_keys.include?(@search_type)
 
+        if product
         #Create an empty hash and set the options (without the product_type) equal to prod_options
-        @search_options.each do |option|
-            product_hash[@search_type].each do |key, value|
-                if value.include?(option)
-                    new_hash = product_hash[@search_type].except!(key)
+
+            @search_options.each do |option|
+                product_hash[@search_type].each do |key, value|
+                    if value.include?(option)
+                        new_hash = product_hash[@search_type].except!(key)
+                    end
                 end
             end
+
+            new_hash.each do |category, options|
+                puts "#{category.capitalize}:".colorize(:green) + " #{options.join(" ")}"
+            end
+        else
+            puts "Please enter a valid product type with 0 or more options.".colorize(:red)
+            exit
         end
+    end
         #Iterate over the options and @@product_hash to check if any of the values include
         #the current option. If so use except! method to remove the entire key (with values)
         #from the hash and set that equal to new_hash.
 
-        new_hash.each do |category, options|
-            puts "#{category.capitalize}:".colorize(:green)
-            puts" #{options.join(" ")}"
-        end
+       
 
         #Iterate over new_hash and print out the remaining category names with capitalized
         #first letters and the corresponding option types below them
-    end
 
 end
