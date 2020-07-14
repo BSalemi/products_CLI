@@ -42,7 +42,8 @@ class Product
         end
     end
 
-    
-
+    def self.get_product_hash
+        @@product_hash
+    end
 
 end 

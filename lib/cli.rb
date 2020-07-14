@@ -27,7 +27,9 @@ class CLI
         self.create_products(product_data)
 
         Product.create_product_hash(product_data)
-        cli.show_options
+
+        cli.show_options(Product.get_product_hash)
+        
     end
 
 
@@ -37,19 +39,18 @@ class CLI
         end
     end
 
-    def show_options
-        product_hash = Product.class_variable_get(:@@product_hash)
+    def show_options(product_hash)
 
         product = product_hash.keys.include?(@type)
 
         if product && @options.nil?
-                #If the user input consists of only one entry and product is not nil
-         product_hash[@type].each do |category, options|
-
-              puts "#{category.capitalize}:".colorize(:green)
-              puts" #{options.join(" ")}"
+            #If product is one of the keys in product_hash and @@options is nil.
+            product_hash[@type].each do |category, options|
+                puts "#{category.capitalize}:".colorize(:green)
+                puts" #{options.join(" ")}"
          end
         end
     end
+     
 
 end
