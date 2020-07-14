@@ -43,14 +43,47 @@ class CLI
 
         product = product_hash.keys.include?(@type)
 
-        if product && @options.nil?
-            #If product is one of the keys in product_hash and @@options is nil.
-            product_hash[@type].each do |category, options|
-                puts "#{category.capitalize}:".colorize(:green)
-                puts" #{options.join(" ")}"
-         end
+        if product
+
+            if @options.nil?
+                #If product is one of the keys in product_hash and @@options is nil.
+                product_hash[@type].each do |category, options|
+                    puts "#{category.capitalize}:".colorize(:green)
+                    puts" #{options.join(" ")}"
+                 end
+            else
+                product_values = product_hash[@type].values.flatten 
+
+                if !@options.any?{|option| product_values.include?(option)}
+                    puts "Sorry, one or more of your options is invalid. Please try again.".colorize(:red)
+                    exit
+                end
+                #If options are found within the product_hash
+                new_hash = {}
+
+                #Create an empty hash and set the options (without the product_type) equal to prod_options
+                @options.each do |option|
+                    product_hash[@type].each do |key, value|
+                        if value.include?(option)
+                            new_hash = product_hash[@type].except!(key)
+                        end
+                    end
+                end
+                #Iterate over the options and @@product_hash to check if any of the values include
+                #the current option. If so use except! method to remove the entire key (with values)
+                #from the hash and set that equal to new_hash.
+
+                new_hash.each do |category, options|
+                    puts "#{category.capitalize}:".colorize(:green)
+                    puts" #{options.join(" ")}"
+                end
+
+                #Iterate over new_hash and print out the remaining category names with capitalized
+                #first letters and the corresponding option types below them
+            end
+        else
+            puts "Please enter a valid product type (i.e. tshirt, mug, sticker) with 0 or more options (i.e. male, red, small).".colorize(:red)
+            exit
         end
     end
-     
-
 end
