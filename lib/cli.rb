@@ -70,7 +70,7 @@ class CLI
 
         if product
             product_hash[@search_type].each do |category, options|
-                puts "#{category.capitalize}:".colorize(:green) + " #{options.join(" ")}"
+                puts "#{category.capitalize}:".colorize(:blue) + " #{options.join(" ")}"
             end
         else
             puts "Please enter a valid product type with 0 or more options.".colorize(:red)
@@ -94,7 +94,7 @@ class CLI
             end
 
             new_hash.each do |category, options|
-                puts "#{category.capitalize}:".colorize(:green) + " #{options.join(" ")}"
+                puts "#{category.capitalize}:".colorize(:blue) + " #{options.join(" ")}"
             end
         else
             puts "Please enter a valid product type with 0 or more options.".colorize(:red)

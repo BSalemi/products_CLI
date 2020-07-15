@@ -31,7 +31,7 @@ describe Product do
         end
     end
 
-    describe ".create_product_hash" do 
+    describe ".create_product_hash" do
         it "takes an array of Product instances as an argument" do
             expect{Product.create_product_hash(product_array)}.to_not raise_error
         end
@@ -48,4 +48,4 @@ describe Product do
 
 
 
-end 
+end
