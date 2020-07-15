@@ -4,7 +4,7 @@ require "active_support/core_ext/hash"
 
 describe CLI do
 
-    #This was actually the first time I've written RSpec tests. I'm really excited to continue to learn how to write proper tests and I plan to continue researching the topic. I used the information from these two tutorials to write my tests to the best of my understanding. 
+    #This was actually the first time I've written RSpec tests. I'm really excited to continue to learn how to write proper tests and I plan to continue researching the topic. I used the information from these two tutorials to write them. 
     # https://semaphoreci.com/community/tutorials/getting-started-with-rspec
     # https://www.rubyguides.com/2018/07/rspec-tutorial/
 
