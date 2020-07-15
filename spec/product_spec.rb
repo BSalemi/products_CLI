@@ -40,6 +40,12 @@ describe Product do
         end
     end
 
+    describe ".get_product_hash" do
+        it "returns the @@product_hash" do
+            expect(Product.get_product_hash).to equal(Product.class_variable_get(:@@product_hash))
+        end
+    end
+
 
 
 end 
