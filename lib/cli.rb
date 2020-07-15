@@ -38,7 +38,7 @@ class CLI
         else
 
             Product.create_product_hash(cli.filter_products)
-            cli.display_results_without_options(Product.get_product_hash)
+            cli.display_results_no_options(Product.get_product_hash)
         end
     end
 
@@ -65,7 +65,7 @@ class CLI
         end
     end
 
-    def display_results_without_options(product_hash)
+    def display_results_no_options(product_hash)
         product = product_hash.keys.include?(@search_type)
 
         if product

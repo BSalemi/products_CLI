@@ -1,8 +1,12 @@
 require "cli"
 require "active_support/core_ext/hash"
-require "colorize"
+
 
 describe CLI do
+
+    #This was actually the first time I've written RSpec tests. I'm really excited to continue to learn how to write proper tests and I plan to continue researching the topic. I used the information from these two tutorials to write my tests to the best of my understanding. 
+    # https://semaphoreci.com/community/tutorials/getting-started-with-rspec
+    # https://www.rubyguides.com/2018/07/rspec-tutorial/
 
     let(:cli) {CLI.new(["tshirt", "red", "small"])}
     let(:cli2) {CLI.new(["sticker"])}
@@ -15,10 +19,34 @@ describe CLI do
         it "takes an args array consisting of product_type and 0 or more options" do
             expect{CLI.new(["tshirt", "red"])}.to_not raise_error
         end
-        it "sets @search_type equal to the first element in the args array" do 
+        it "sets @search_type equal to the first element in the args array" do
             expect(cli.instance_variable_get(:@search_type)).to eq("tshirt")
         end
     end
+
+    describe ".run" do
+        xit "takes product_data and args array as arguments and initializes a new CLI instance" do
+
+            product_data = [{
+                "id": 59,
+                "product_type": "sticker",
+                "options": {
+                  "size": "large",
+                  "style": "glossy"
+                }
+              },
+              {
+                "id": 60,
+                "product_type": "sticker",
+                "options": {
+                  "size": "x-large",
+                  "style": "glossy"
+                }
+              }]
+
+            expect(CLI.run(product_data, ["tshirt","red"])).to_not raise_error 
+            end
+        end
 
     describe "#set_options" do
         it "takes an array of options and sets the elements from index 1 equal to @search_options" do
@@ -74,12 +102,12 @@ describe CLI do
         end
     end
 
-    describe "#display_results_without_options" do
+    describe "#display_results_no_options" do
         xit "takes a product hash as an argument" do
-            expect(cli2.display_results_without_options(product_hash)).to_not raise_error
+            expect(cli2.display_results_no_options(product_hash)).to_not raise_error
         end
         xit "iterates over the hash and outputs the information to the console" do
-            expect(cli2.display_results_without_options(product_hash)).to eq("Size: x-small small medium large x-large \n Style: matte glossy")
+            expect(cli2.display_results_no_options(product_hash)).to eq("Size: x-small small medium large x-large \n Style: matte glossy")
         end
     end
 
