@@ -4,7 +4,7 @@ describe Product do
 
     let(:tshirt) {Product.new(1, "tshirt", {:gender => "male", :color => "red", :size => "small"})}
     let(:matte_sticker) {Product.new(2, "sticker", {:style => "matte", :size => "small"})}
-    let(:glossy_sticker) {Product.new(2, "sticker", {:style => "glossy", :size => "medium"})}
+    let(:glossy_sticker) {Product.new(3, "sticker", {:style => "glossy", :size => "medium"})}
 
     let(:product_array) {[glossy_sticker, matte_sticker]}
 

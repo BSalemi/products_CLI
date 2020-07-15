@@ -26,7 +26,7 @@ class CLI
         self.create_products(product_data)
 
         if args.length > 1
-            filtered_products = cli.filter_by_options(cli.filter_product)
+            filtered_products = cli.filter_by_options(cli.filter_products)
 
             if filtered_products.empty?
                 puts "Sorry, one or more of your options is invalid. Please try again.".colorize(:red)
@@ -37,7 +37,7 @@ class CLI
             cli.display_results_with_options(Product.get_product_hash)
         else
 
-            Product.create_product_hash(cli.filter_product)
+            Product.create_product_hash(cli.filter_products)
             cli.display_results_without_options(Product.get_product_hash)
         end
     end
@@ -49,7 +49,7 @@ class CLI
         end
     end
 
-    def filter_product
+    def filter_products
         #Search for products that match type given by user
         Product.all.filter do |product|
             product.type == @search_type
