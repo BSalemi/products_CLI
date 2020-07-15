@@ -1,14 +1,22 @@
 require "cli"
+require "active_support/core_ext/hash"
+require "colorize"
 
 describe CLI do
 
     let(:cli) {CLI.new(["tshirt", "red", "small"])}
+    let(:cli2) {CLI.new(["sticker"])}
+    let(:cli3) {CLI.new(["sticker", "glossy"])}
     let(:product_hash) {{"sticker"=>{:size=>["x-small", "small", "medium", "large", "x-large"], :style=>[ "matte", "glossy"]}}}
+    let(:product_hash2) {{"sticker"=>{:size=>["medium", "large", "x-large"], :style=>[ "glossy"]}}}
 
 
     describe "#new" do
         it "takes an args array consisting of product_type and 0 or more options" do
             expect{CLI.new(["tshirt", "red"])}.to_not raise_error
+        end
+        it "sets @search_type equal to the first element in the args array" do 
+            expect(cli.instance_variable_get(:@search_type)).to eq("tshirt")
         end
     end
 
@@ -68,10 +76,19 @@ describe CLI do
 
     describe "#display_results_without_options" do
         xit "takes a product hash as an argument" do
-            expect(cli.display_results_without_options(product_hash)).to_not raise_error
+            expect(cli2.display_results_without_options(product_hash)).to_not raise_error
         end
         xit "iterates over the hash and outputs the information to the console" do
-            expect(cli.display_results_without_options(product_hash)).to eq("Size: x-small small medium large x-large \n Style: matte glossy")
+            expect(cli2.display_results_without_options(product_hash)).to eq("Size: x-small small medium large x-large \n Style: matte glossy")
+        end
+    end
+
+    describe "#display_results_with_options" do
+        xit "takes a product hash as an argument" do 
+            expect{cli3.display_results_with_options(product_hash2)}.to_not raise_error 
+        end 
+        xit "iterates over the hash, removes the keys & values that match @search_options, and outputs the remaining information to the console" do 
+            expect(cli3.display_results_with_options(product_hash2)).to eq("Size: medium large x-large")
         end
     end
 
