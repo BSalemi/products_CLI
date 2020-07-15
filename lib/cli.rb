@@ -1,6 +1,6 @@
 class CLI
 
-    attr_accessor :search_type, :search_options, :product_data
+    attr_accessor :search_type, :search_options
 
     def initialize(args)
         #Checks if arguments were passed in to CLI. If not, instruct user to do so and exits the CLI.
@@ -9,10 +9,10 @@ class CLI
             exit
         end
 
-        #Sets the first argument of args to the @search_type instance variable.
+       #Since first argument given by user is always product_type, set @search_type equal to it
         @search_type = args.first.downcase
 
-        self.set_options(args) if args.length > 1    
+        self.set_options(args) if args.length > 1
     end
 
     def set_options(options)

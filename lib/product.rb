@@ -44,4 +44,4 @@ class Product
         @@product_hash
     end
 
-end 
+end
