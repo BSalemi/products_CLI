@@ -1,6 +1,6 @@
 require "product"
 
-describe Product do 
+describe Product do
 
     let(:tshirt) {Product.new(1, "tshirt", {:gender => "male", :color => "red", :size => "small"})}
     let(:matte_sticker) {Product.new(2, "sticker", {:style => "matte", :size => "small"})}

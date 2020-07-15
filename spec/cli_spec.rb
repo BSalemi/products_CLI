@@ -45,11 +45,22 @@ describe CLI do
     describe "#filter_products" do
         it "Returns an array of Product instances whose product_type matches @type" do
 
-            red_tshirt = Product.new(4, "tshirt", {:gender => "male", :color => "red", :size => "small"})
+            red_shirt = Product.new(4, "tshirt", {:gender => "male", :color => "red", :size => "small"})
             matte_sticker = Product.new(5, "sticker", {:style => "matte", :size => "x-small"})
             blue_shirt = Product.new(6,"tshirt", {:gender => "male", :color => "blue", :size => "medium"})
 
-            expect(cli.filter_products).to eq([red_tshirt, blue_shirt])
+            expect(cli.filter_products).to eq([red_shirt, blue_shirt])
         end
     end
-end
+
+    describe "#filter_by_options" do
+        it "Takes an array of products whose types match @type and filters them by @search_options" do
+            
+            tshirt_a = Product.new(7, "tshirt", {:gender => "female", :color => "red", :size => "small"})
+            tshirt_b = Product.new(8,"tshirt", {:gender => "male", :color => "blue", :size => "medium"})
+            tshirt_c = Product.new(9,"tshirt", {:gender => "female", :color => "red", :size => "large"})
+
+            expect(cli.filter_by_options([tshirt_a, tshirt_b, tshirt_c])).to eq([tshirt_a])
+        end
+    end
+end 
