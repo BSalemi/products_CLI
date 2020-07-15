@@ -27,7 +27,7 @@ Example: When options are providing alongside product type.
 
 ```
 > ./product_CLI tshirt male
-Color: red, blue, green
+Color: red, navy, green, white, black
 Size: small, medium, large, extra-large, 2x-large
 ```
 
