@@ -9,7 +9,12 @@ describe Product do
 
     let(:product_array) {[glossy_sticker, matte_sticker]}
 
-    let(:product_hash) {{"sticker"=>{:size=>["medium", "small"], :style=>["glossy", "matte"]}}}
+    let(:product_hash) {{
+                        "sticker"=>{
+                          :size=>["medium", "small"],
+                          :style=>["glossy", "matte"]
+                        }
+                      }}
 
 
 

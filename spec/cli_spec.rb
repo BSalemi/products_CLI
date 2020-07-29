@@ -11,8 +11,18 @@ describe CLI do
     let(:cli) {CLI.new(["tshirt", "red", "small"])}
     let(:cli2) {CLI.new(["sticker"])}
     let(:cli3) {CLI.new(["sticker", "glossy"])}
-    let(:product_hash) {{"sticker"=>{:size=>["x-small", "small", "medium", "large", "x-large"], :style=>[ "matte", "glossy"]}}}
-    let(:product_hash2) {{"sticker"=>{:size=>["medium", "large", "x-large"], :style=>[ "glossy"]}}}
+    let(:product_hash) {{
+                        "sticker"=> {
+                            :size=> ["x-small", "small", "medium", "large", "x-large"],
+                            :style=>[ "matte", "glossy"]
+                            }
+                        }}
+    let(:product_hash2) {{
+                        "sticker"=>{
+                            :size=>["medium", "large", "x-large"], 
+                            :style=>[ "glossy"]
+                            }
+                        }}
 
 
     describe "#new" do
